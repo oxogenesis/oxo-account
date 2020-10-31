@@ -1,5 +1,7 @@
 const oxoKeyPairs = require("oxo-keypairs")
 
+const fs = require('fs');
+
 while (true) {
     let Seed = oxoKeyPairs.generateSeed("any string you choose", 'secp256k1')
     let keypair = oxoKeyPairs.deriveKeypair(Seed)
@@ -21,8 +23,16 @@ while (true) {
     if (rs != null) {
         console.log(`Seed      :${Seed}`)
         console.log(`Address   :${Address}`)
-        console.log(`PublicKey :${PublicKey}`)
-        console.log(`PrivateKey:${PrivateKey}`)
-        return
+        //console.log(`PublicKey :${PublicKey}`)
+        //console.log(`PrivateKey:${PrivateKey}`)
+        //return
+        fs.writeFileSync(
+            './seed.txt',
+            `Seed      :${Seed}\nAddress   :${Address}\n`,
+            {flag:'a',encoding:'utf-8'},
+            function(err){
+                console.log(err);
+            }
+        )
     }
 }
